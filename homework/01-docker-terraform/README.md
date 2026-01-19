@@ -174,3 +174,14 @@ Too bad I couldn't get a trial account, I will try to work with terraform locall
 > - terraform init, terraform apply -auto-approve, terraform destroy
 > - terraform import, terraform apply -y, terraform rm
 
+## Solution 7.
+
+    terraform init, terraform apply -auto-approve, terraform destroy
+
+Since I don't have a cloud account to test on, I tried to replicate the postgres/pgadmin setup using terraform, but it behaves differently than the docker compose way, they are NOT on the same network.
+
+so the database container must publish its port to the host `5450:5432` for example, and the pgadmin must connect to the host on the said port `5450`
+
+Note:
+- from the pgadmin, the host would be `172.17.0.1` which the default ip address docker assigns to the host machine. if you try connecting to a database on localhost it will not find it, because in the pgadmin's container _*THERE IS NO POSTGRES*_ (I always tend forget that detail)
+- other network configurations is definitely possible, this is just the default behaviour for isolated containers using the default `bridged` network. if you wish you can search more on [docker networks](https://docs.docker.com/engine/network/) or [tf docker_container network](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/container#nestedblock--networks_advanced)
