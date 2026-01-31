@@ -209,6 +209,8 @@ __marimo__/
 # My Definitions
 **/notebooks/*
 !**/notebooks/*.ipynb
+**/cache/
+**/db/
 
 # Local .terraform directories
 **/.terraform/
